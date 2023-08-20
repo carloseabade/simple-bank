@@ -2,7 +2,7 @@
 INSERT INTO transfers (
   from_account_id,
   to_account_id,
-  ammount
+  amount
 ) VALUES (
   $1, $2, $3
 )
@@ -20,7 +20,7 @@ OFFSET $2;
 
 -- name: UpdateTransfer :one
 UPDATE transfers
-SET from_account_id = $2, to_account_id = $3, ammount = $4
+SET from_account_id = $2, to_account_id = $3, amount = $4
 WHERE id = $1
 RETURNING *;
 
