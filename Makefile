@@ -3,6 +3,9 @@
 postgres:
 > docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d --rm postgres:12-alpine
 
+log:
+> docker container logs postgres12 --follow
+
 createdb:
 > docker exec -it postgres12 createdb --username=root --owner=root simple_bank
 
@@ -21,5 +24,5 @@ sqlc:
 test:
 > go test -v -cover ./...
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test logs
 
