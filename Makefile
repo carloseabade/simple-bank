@@ -1,7 +1,7 @@
 .RECIPEPREFIX = >
 
 postgres:
-> docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d --rm postgres:12-alpine
+> docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d --rm --network host postgres:12-alpine
 
 log:
 > docker container logs postgres12 --follow
@@ -13,10 +13,10 @@ dropdb:
 > docker exec -it postgres12 dropdb simple_bank
 
 migrateup:
-> migrate -path db/migration -database "postgresql://root:secret@172.17.0.2:5432/simple_bank?sslmode=disable" -verbose up
+> migrate -path db/migration -database "postgresql://root:secret@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose up
 
 migratedown:
-> migrate -path db/migration -database "postgresql://root:secret@172.17.0.2:5432/simple_bank?sslmode=disable" -verbose down
+> migrate -path db/migration -database "postgresql://root:secret@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down
 
 sqlc:
 > sqlc generate
