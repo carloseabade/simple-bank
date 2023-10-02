@@ -2,7 +2,6 @@ package main
 
 import (
   "database/sql"
-  "fmt"
   "log"
 
   "github.com/carloseabade/simple-bank/util"
@@ -17,7 +16,7 @@ func main() {
   if err != nil {
     log.Fatal("cannot load config:", err)
   }
-  fmt.Println(config)
+
   conn, err := sql.Open(config.DBDriver, config.DBSource)
   if err != nil {
     log.Fatal("cannot connect to db:", err)
